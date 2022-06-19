@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <script src="https://unpkg.com/easyinvoice/dist/easyinvoice.min.js"></script>
+
+</head>
+<body>
+    <button onclick="downloadInvoice()">Download File</button>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        function downloadInvoice(){
+            //Import the library into your project
+ 
+ var data = {
+     //"documentTitle": "RECEIPT", //Defaults to INVOICE
+     "currency": "USD",
+     "taxNotation": "vat", //or gst
+     "marginTop": 25,
+     "marginRight": 25,
+     "marginLeft": 25,
+     "marginBottom": 25,
+     "logo": "https://www.easyinvoice.cloud/img/logo.png", //or base64
+     //"logoExtension": "png", //only when logo is base64
+     "sender": {
+         "company": "Sample Corp",
+         "address": "Sample Street 123",
+         "zip": "1234 AB",
+         "city": "Sampletown",
+         "country": "Samplecountry"
+         //"custom1": "custom value 1",
+         //"custom2": "custom value 2",
+         //"custom3": "custom value 3"
+     },
+     "client": {
+         "company": "Client Corp",
+         "address": "Clientstreet 456",
+         "zip": "4567 CD",
+         "city": "Clientcity",
+         "country": "Clientcountry"
+         //"custom1": "custom value 1",
+         //"custom2": "custom value 2",
+         //"custom3": "custom value 3"
+     },
+     "invoiceNumber": "2020.0001",
+     "invoiceDate": new Date(),
+     "products": [
+         {
+             "quantity": "2",
+             "description": "Test1",
+             "tax": 6,
+             "price": 33.87
+         },
+         {
+             "quantity": "4",
+             "description": "Test2",
+             "tax": 21,
+             "price": 10.45
+         }
+     ],
+     "bottomNotice": "Kindly pay your invoice within 15 days."
+ };
+  
+ //Create your invoice! Easy!
+ easyinvoice.createInvoice(data, function (result) {
+     //The response will contain a base64 encoded PDF file
+     console.log(result.pdf);
+     //await fs.writeFileSync("invoice.pdf", result.pdf, 'base64');
+     easyinvoice.download("invoice.pdf")
+ });
+
+ }
+    </script>
+
+</html>
